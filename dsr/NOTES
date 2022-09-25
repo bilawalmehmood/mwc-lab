@@ -1,0 +1,23 @@
+To find source/dest of a SRPacket p, 
+
+p.dest = ID((Address::instance().get_nodeaddr(iph->daddr())),::IP);
+p.src = ID((Address::instance().get_nodeaddr(iph->saddr())),::IP);
+
+MALICIOUS NODES:
+---------------
+* accept and forward route requests correctly, in order to add themselves
+  to routes that can be used by other nodes to forward traffic.
+* when a node actually wishes to forward traffic through them, they drop all
+  packets (do not forward), effectively performing a denial of service attack.
+* the monitor is meant to detect these nodes, by hearing that they do not forward
+  traffic in a reasonable amount of time.
+
+SELFISH NODES:
+-------------
+* drop route requests so as to attempt to never get onto a route, so that they
+  will never have to forward traffic for anyone.
+* perform route requests of their own in order to use other nodes to send their
+  own traffic throughout the network.
+* the chip economy is meant to detect these nodes who escape getting on routes
+  and so cannot be detected by the monitor since they will never be asked to
+  forward traffic.

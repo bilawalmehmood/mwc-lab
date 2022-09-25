@@ -1,0 +1,22 @@
+To install:
+
+* cd to your ns-2.29/ directory
+* cp -r dsr dsr_backup
+* rm -rf dsr
+* tar xvzf dsr_ocean_1.0.tar.gz (you need to put dsr_ocean_1.0.tar.gz in ns-2.29/.
+* open ns-2.29/Makefile, and add "dsr/monitor.o dsr/bank.o" to the OBJ_CC variable.
+* if you want to turn off debug output, open dsr/ocean.h and comment out the "#define MODULENAME_DEBUG" entries. Other parameters can also be changed in the dsr/ocean.h file. Whenever you change the ocean.h file, you need to execute ./clean in dsr/ and then..
+* "make" in ns-2.29/
+
+When running a simulation, if you want to have malicious, selfish and/or faulty nodes, create a file named "nodes.info" with the following structure:
+[malicious]
+0 1 2 3 4
+[selfish]
+3 4 5 6
+[faulty]
+7 10 20
+8 11 15
+
+The numbers should be replaced with the nodes you want to be malicious/selfish. If you dont want any malicious nodes, leave the line containing the numbers blank, same goes for selfish. The format for faulty nodes is <node_id> <begin_faulty_time> <end_faulty_time>. The "nodes.info" file should exist in the directory you run the simulation in, ie, where you execute the command "ns script.tcl".
+
+
